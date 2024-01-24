@@ -1,23 +1,9 @@
-var Months;
-(function (Months) {
-    Months[Months["January"] = 0] = "January";
-    Months[Months["February"] = 1] = "February";
-    Months[Months["March"] = 2] = "March";
-    Months[Months["April"] = 3] = "April";
-    Months[Months["May"] = 4] = "May";
-    Months[Months["June"] = 5] = "June";
-    Months[Months["July"] = 6] = "July";
-    Months[Months["August"] = 7] = "August";
-    Months[Months["September"] = 8] = "September";
-    Months[Months["October"] = 9] = "October";
-    Months[Months["November"] = 10] = "November";
-    Months[Months["December"] = 11] = "December";
-})(Months || (Months = {}));
-;
+import { Months } from "./enums.js";
+import { domVariables } from "./dom_variables.js";
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 function renderCalendar() {
-    const calendarDays = document.querySelector('.days');
+    const { calendarDays, currentMonthElement } = domVariables;
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     calendarDays.innerHTML = '';
@@ -32,11 +18,9 @@ function renderCalendar() {
         dayElement.innerText = i.toString();
         calendarDays.appendChild(dayElement);
     }
-    const currentMonthElement = document.getElementById('currentMonth');
     currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
 }
-const prevBtn = document.querySelector('#prevMonth');
-const nextBtn = document.querySelector('#nextMonth');
+const { prevBtn, nextBtn } = domVariables;
 const checkPreviousBtn = () => {
     currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
     if (currentMonth === 11) {
@@ -59,4 +43,3 @@ nextBtn.addEventListener('click', () => {
 });
 // Initial rendering
 renderCalendar();
-export {};

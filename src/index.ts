@@ -1,25 +1,12 @@
-import { domVariables } from "./dom_variables";
- enum Months {
-  January,
-  February,
-  March, 
-  April, 
-  May, 
-  June,
-  July, 
-  August, 
-  September, 
-  October, 
-  November, 
-  December
-};
+import { Months } from "./enums.js";
+import { domVariables } from "./dom_variables.js";
 
 let currentMonth: number = new Date().getMonth();
 
 let currentYear: number = new Date().getFullYear();
 
 function renderCalendar(): void {
-  const calendarDays = document.querySelector('.days') as HTMLDivElement;
+  const {calendarDays, currentMonthElement} = domVariables;
 
   const firstDayOfMonth: number = new Date(currentYear, currentMonth, 1).getDay();
   const daysInMonth: number = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -37,13 +24,9 @@ function renderCalendar(): void {
       dayElement.innerText = i.toString();
       calendarDays.appendChild(dayElement);
   }
-
-  const currentMonthElement = document.getElementById('currentMonth') as HTMLHeadingElement;
   currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
 }
-
-const prevBtn = document.querySelector('#prevMonth') as HTMLButtonElement;
-const nextBtn = document.querySelector('#nextMonth') as HTMLButtonElement;
+const {prevBtn, nextBtn} = domVariables;
 
 const checkPreviousBtn = (): void => {
   currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
