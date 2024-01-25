@@ -52,5 +52,56 @@ nextBtn.addEventListener('click', () => {
   renderCalendar();
 });
 
+
+// Modal code
+const {newEventModal, cancelButton, addEventButton, newEventForm} = domVariables;
+
+addEventButton.addEventListener('click', () => {
+  newEventModal.style.display = 'block';
+});
+
+if (cancelButton) {
+  cancelButton.addEventListener('click', closeAndResetModal);
+} else {
+  console.error('El elemento cancelButton no fue encontrado en el DOM.');
+}
+
+window.addEventListener('click', (event) => {
+  if (event.target === newEventModal) {
+    closeAndResetModal();
+  }
+});
+
+const {title, initialDate, endDate, eventType, description} = domVariables;
+
+newEventForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  title.value;
+  initialDate.value;
+  endDate.value;
+  eventType.value;
+  description.value;
+
+  localStorage.setItem('eventTitle', title.value);
+  localStorage.setItem('eventInitialDate', initialDate.value);
+  localStorage.setItem('eventEndDate', endDate.value);
+  localStorage.setItem('eventEventType', eventType.value);
+  localStorage.setItem('eventDescription', description.value);
+
+  closeAndResetModal();
+});
+
+function closeAndResetModal() {
+  newEventModal.style.display = 'none';
+  newEventForm.reset();
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeAndResetModal();
+  }
+});
+
 // Initial rendering
 renderCalendar();
+

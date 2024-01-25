@@ -10,15 +10,20 @@
 
   <header>
     <h1>JS Calendar</h1>
-    <button id="showModal"></button>
+    <button class="modalbtn" id="showModal"></button>
   </header>
 
   <main>
     <div class="header">
-      <button id="prevMonth">Previous Month</button>
+      <button class="header__btn--prev" id="prevMonth">Previous Month</button>
       <h2 id="currentMonth">Month Year</h2>
-      <button id="nextMonth">Next Month</button>
+      <button class="header__btn--next" id="nextMonth">Next Month</button>
     </div>
+    <div class="modal hidden" id="modal">
+      aijesfb
+      <button class="modal__button" id="modalBtn"></button>
+    </div>
+    <div class="overlay hidden" id="overlay"></div>
 
     <div class="days"></div>
 

@@ -20,6 +20,10 @@ body {
   background-color: #f0f0f0;
 }
 
+.hidden {
+  display: none;
+}
+
 button {
   background-color: #007BFF;
   color: #fff;
