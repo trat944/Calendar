@@ -15,23 +15,23 @@
 
   <main>
     <div class="header">
-      <button id="prevMonth">Previous Month</button>
+      <button id="prevMonth">⬅</button>
       <h2 id="currentMonth">Month Year</h2>
-      <button id="nextMonth">Next Month</button>
+      <button id="nextMonth">➡</button>
     </div>
-
+    
     <div class="days"></div>
 
-<!-- Modal para crear un nuevo evento -->
+
 <div class="modal" id="newEventModal">
     <div class="modal-content">
         <span class="close" id="closeModal">&times;</span>
         <h2>New event</h2>
-        <!-- Formulario para crear un nuevo evento -->
+
         <form id="newEventForm" class="modal-container">
-            <!-- Campos del formulario (título, fecha, etc.) -->
+
             <label for="eventTitle">Title:</label>
-            <input type="text" id="eventTitle" name="eventTitle" required>
+            <input type="text" id="eventTitle" name="eventTitle">
             <label for="initialDate">Initial Date:</label>
             <input type="datetime-local" name="initialDate" id="initialDate">
             <label for="checkEndDate">End Date</label>
@@ -50,22 +50,19 @@
               <option value="60">1 hour before</option>
             </select>
             <label for="description">Description:</label>
-            <textarea name="description" id="description" maxlength="500"></textarea>
+            <textarea name="description" id="description"></textarea>
 
             <label for="eventType">Event type:</label>
             <select id="eventType" name="eventType">
               <option value="meeting">Meeting</option>
               <option value="personal">Personal</option>
               <option value="study">Study</option>
-              <option value="other">other</option>
+              <option value="other">Other</option>
             </select>
-            
-
-            <!-- Agrega más campos según tus necesidades -->
 
             <div class="modal-footer">
-                <button type="button" id="cancelButton">Cancelar</button>
-                <button type="submit" id="saveButton">Guardar</button>
+                <button type="button" id="cancelButton">Cancel</button>
+                <button type="submit" id="saveButton">Save</button>
             </div>
         </form>
     
