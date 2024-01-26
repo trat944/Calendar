@@ -85,7 +85,7 @@ const loadModal = (): void => {
 loadModal();
 
 const submitEvent = () => {
-  const {title, initialDate, endDate, eventType, description,} = domVariables;
+  const {eventTitle, initialDate, endDate, eventType, description,} = domVariables;
   saveButton.addEventListener('submit', (event) => {
     // event.preventDefault();
   
@@ -103,6 +103,14 @@ const submitEvent = () => {
 function closeAndResetModal() {
   newEventModal.classList.remove("active");
   newEventForm.reset();
+}
+
+function checkForm() {
+  const {eventTitle, initialDate, checkEndDate, endDate} = domVariables;
+  if (!eventTitle || eventTitle.length > 60) console.log('Error');
+  if (!initialDate) console.log('Error');
+  if (checkEndDate.checked) endDate.classList.remove('hide');
+    else endDate.classList.add('hide');
 }
 
 // Initial rendering

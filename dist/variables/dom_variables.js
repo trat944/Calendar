@@ -6,13 +6,14 @@ export const domVariables = {
     addEventButton: document.getElementById('showModal'),
     newEventModal: document.getElementById('newEventModal'),
     closeModalButton: document.getElementById('closeModal'),
-    saveButton: document.getElementById('saveButton'),
     cancelButton: document.getElementById('cancelButton'),
     newEventForm: document.getElementById('newEventForm'),
     reminderSelect: document.getElementById('reminder'),
-    title: document.getElementById('title'),
+    eventTitle: document.getElementById('eventTitle'),
     initialDate: document.getElementById('initialDate'),
     endDate: document.getElementById('endDate'),
     eventType: document.getElementById('eventType'),
-    description: document.getElementById('description')
+    description: document.getElementById('description'),
+    checkEndDate: document.getElementById('checkEndDate'),
+    saveButton: document.getElementById('saveButton')
 };
