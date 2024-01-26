@@ -10,22 +10,72 @@
 
   <header>
     <h1>JS Calendar</h1>
-    <button class="modalbtn" id="showModal"></button>
+    <button id="showModal">New Event</button>
   </header>
 
   <main>
     <div class="header">
-      <button class="header__btn--prev" id="prevMonth">Previous Month</button>
+      <button id="prevMonth">Previous Month</button>
       <h2 id="currentMonth">Month Year</h2>
-      <button class="header__btn--next" id="nextMonth">Next Month</button>
+      <button id="nextMonth">Next Month</button>
     </div>
-    <div class="modal hidden" id="modal">
-      aijesfb
-      <button class="modal__button" id="modalBtn"></button>
-    </div>
-    <div class="overlay hidden" id="overlay"></div>
 
     <div class="days"></div>
+
+<!-- Modal para crear un nuevo evento -->
+<div class="modal" id="newEventModal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>New event</h2>
+        <!-- Formulario para crear un nuevo evento -->
+        <form id="newEventForm" class="modal-container">
+            <!-- Campos del formulario (título, fecha, etc.) -->
+            <label for="eventTitle">Title:</label>
+            <input type="text" id="eventTitle" name="eventTitle" required>
+            <label for="initialDate">Initial Date:</label>
+            <input type="datetime-local" name="initialDate" id="initialDate">
+            <label for="checkEndDate">End Date</label>
+            <input type="checkbox" name="checkEndDate" id="checkEndDate">
+            <label for="endDate">End Date:</label>
+            <input type="datetime-local" name="endDate" id="endDate">
+            <label for="remindDate">Remind me when this event expires</label>
+            <input type="checkbox" name="remindDate" id="remindDate">
+            <label for="reminder">Reminder:</label>
+            <select id="reminder" name="reminder">
+              <option value="0">No reminder</option>
+              <option value="5">5 minutes before</option>
+              <option value="10">10 minutes before</option>
+              <option value="15">15 minutes before</option>
+              <option value="30">30 minutes before</option>
+              <option value="60">1 hour before</option>
+            </select>
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" maxlength="500"></textarea>
+
+            <label for="eventType">Event type:</label>
+            <select id="eventType" name="eventType">
+              <option value="meeting">Meeting</option>
+              <option value="personal">Personal</option>
+              <option value="study">Study</option>
+              <option value="other">other</option>
+            </select>
+            
+
+            <!-- Agrega más campos según tus necesidades -->
+
+            <div class="modal-footer">
+                <button type="button" id="cancelButton">Cancelar</button>
+                <button type="submit" id="saveButton">Guardar</button>
+            </div>
+        </form>
+    
+    
+    
+      </div>
+</div>
+
+
+
 
   </main>
 

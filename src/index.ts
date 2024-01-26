@@ -57,14 +57,12 @@ nextBtn.addEventListener('click', () => {
 const {newEventModal, cancelButton, addEventButton, newEventForm} = domVariables;
 
 addEventButton.addEventListener('click', () => {
-  newEventModal.style.display = 'block';
+  newEventModal.classList.add("active");
 });
 
 if (cancelButton) {
   cancelButton.addEventListener('click', closeAndResetModal);
-} else {
-  console.error('El elemento cancelButton no fue encontrado en el DOM.');
-}
+} 
 
 window.addEventListener('click', (event) => {
   if (event.target === newEventModal) {
