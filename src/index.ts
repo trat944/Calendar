@@ -63,6 +63,10 @@ addEventButton.addEventListener('click', () => {
 if (cancelButton) {
   cancelButton.addEventListener('click', closeAndResetModal);
 } 
+const {title, initialDate, endDate, eventType, description, saveButton, closeModalButton} = domVariables;
+
+closeModalButton.addEventListener('click', closeAndResetModal);
+
 
 window.addEventListener('click', (event) => {
   if (event.target === newEventModal) {
@@ -70,15 +74,11 @@ window.addEventListener('click', (event) => {
   }
 });
 
-const {title, initialDate, endDate, eventType, description} = domVariables;
 
-newEventForm.addEventListener('submit', (event) => {
+
+saveButton.addEventListener('submit', (event) => {
   event.preventDefault();
-  title.value;
-  initialDate.value;
-  endDate.value;
-  eventType.value;
-  description.value;
+
 
   localStorage.setItem('eventTitle', title.value);
   localStorage.setItem('eventInitialDate', initialDate.value);
@@ -90,7 +90,7 @@ newEventForm.addEventListener('submit', (event) => {
 });
 
 function closeAndResetModal() {
-  newEventModal.style.display = 'none';
+  newEventModal.classList.remove("active");
   newEventForm.reset();
 }
 
