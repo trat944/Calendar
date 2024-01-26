@@ -155,20 +155,52 @@ button:hover {
   .dates-container {
     width: auto;
   }
- 
 }
-@media only screen and (min-width: 1000px){
+ 
+@media only screen and (min-width: 1000px) and (max-width: 1399px) {
   .default-event img {
     margin-top: 40%;
   }
   
 }
 
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: 1400px) and (max-width:2000px) {
+  body {
+    font-size: 1.5rem;
+  }
   .calendar-general-container {
     width: 65vw;
   }
+
+  .event-container {
+    width: 35%;
+  }
+  .default-event img {
+    margin-top: 20%;
+  }
  
+  .day {
+    font-size: 2.5rem;
+    font-weight: bold;
+   
+  }
+}
+@media only screen and (min-width: 2001px) {
+  body {
+    font-size: 2.5rem;
+  }
+  .calendar-general-container {
+    width: 65vw;
+  }
+
+  .event-container {
+    width: 35%;
+  }
+  .day {
+    font-size: 3.5rem;
+    padding: 2.5rem 0;
+  }
+
 }
 
 
