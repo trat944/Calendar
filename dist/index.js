@@ -21,83 +21,75 @@ function renderCalendar() {
     }
     currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
 }
+renderCalendar();
 const { prevBtn, nextBtn } = domVariables;
 const checkPreviousBtn = () => {
-    let { currentMonth, currentYear } = variables;
     variables.currentMonth = variables.currentMonth === 0 ? 11 : variables.currentMonth - 1;
     if (variables.currentMonth === 11) {
         variables.currentYear -= 1;
     }
 };
 const checkNextBtn = () => {
-    let { currentMonth, currentYear } = variables;
     variables.currentMonth = variables.currentMonth === 11 ? 0 : variables.currentMonth + 1;
     if (variables.currentMonth === 0) {
         variables.currentYear += 1;
     }
 };
-const loadPreviousMonth = () => {
-    prevBtn.addEventListener('click', () => {
-        checkPreviousBtn();
-        renderCalendar();
-    });
-};
-loadPreviousMonth();
-const loadNextMonth = () => {
-    nextBtn.addEventListener('click', () => {
-        checkNextBtn();
-        renderCalendar();
-    });
-};
-loadNextMonth();
+prevBtn.addEventListener('click', () => {
+    checkPreviousBtn();
+    renderCalendar();
+});
+nextBtn.addEventListener('click', () => {
+    checkNextBtn();
+    renderCalendar();
+});
 // Modal code
-const { newEventModal, cancelButton, addEventButton, newEventForm, saveButton, closeModalButton } = domVariables;
-const loadModal = () => {
-    addEventButton.addEventListener('click', () => {
-        newEventModal.classList.add("active");
-    });
-    //if (cancelButton) {
-    cancelButton.addEventListener('click', closeAndResetModal);
-    //} 
-    closeModalButton.addEventListener('click', closeAndResetModal);
-    window.addEventListener('click', (event) => {
-        if (event.target === newEventModal) {
-            closeAndResetModal();
-        }
-    });
-    window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            closeAndResetModal();
-        }
-    });
-};
-loadModal();
-const submitEvent = () => {
-    const { eventTitle, initialDate, endDate, eventType, description, } = domVariables;
-    saveButton.addEventListener('submit', (event) => {
-        // event.preventDefault();
-        //   localStorage.setItem('eventTitle', title.value);
-        //   localStorage.setItem('eventInitialDate', initialDate.value);
-        //   localStorage.setItem('eventEndDate', endDate.value);
-        //   localStorage.setItem('eventEventType', eventType.value);
-        //   localStorage.setItem('eventDescription', description.value);
-        closeAndResetModal();
-    });
-};
+const { newEventModal, cancelButton, addEventButton, newEventForm, saveButton, closeModalButton, checkEndDate, endDateContainer, reminderContainer, remindDate, reminderSelect } = domVariables;
+saveButton.addEventListener('click', () => {
+    checkForm();
+    // closeAndResetModal();
+});
+addEventButton.addEventListener('click', () => {
+    newEventModal.classList.add('active');
+});
+cancelButton.addEventListener('click', closeAndResetModal);
+closeModalButton.addEventListener('click', closeAndResetModal);
+//evento checkbox
+checkEndDate.addEventListener('change', () => {
+    if (endDateContainer.classList.contains('hide')) {
+        endDateContainer.classList.remove('hide');
+    }
+    else
+        endDateContainer.classList.add('hide');
+});
+remindDate.addEventListener('change', () => {
+    if (reminderContainer.classList.contains('hide')) {
+        reminderContainer.classList.remove('hide');
+    }
+    else
+        reminderContainer.classList.add('hide');
+});
+function checkForm() {
+    const { eventTitle, initialDate, checkEndDate, endDate } = domVariables;
+    if (!eventTitle.value || eventTitle.value.length > 60)
+        console.log('Error');
+    if (!initialDate.value)
+        console.log('Error');
+    if (!endDateContainer.classList.contains('hide') && !endDate.value)
+        console.log('error');
+    if (!reminderContainer.classList.contains('hide') && reminderSelect.value === "0")
+        console.log('calabaza');
+}
 function closeAndResetModal() {
     newEventModal.classList.remove("active");
     newEventForm.reset();
 }
-function checkForm() {
-    const { eventTitle, initialDate, checkEndDate, endDate } = domVariables;
-    if (!eventTitle || eventTitle.length > 60)
-        console.log('Error');
-    if (!initialDate)
-        console.log('Error');
-    if (checkEndDate.checked)
-        endDate.classList.remove('hide');
-    else
-        endDate.classList.add('hide');
-}
-// Initial rendering
-renderCalendar();
+//const submitEvent = () => {
+//   const {eventTitle, initialDate, endDate, eventType, description,} = domVariables;
+// }
+// event.preventDefault();
+//   localStorage.setItem('eventTitle', title.value);
+//   localStorage.setItem('eventInitialDate', initialDate.value);
+//   localStorage.setItem('eventEndDate', endDate.value);
+//   localStorage.setItem('eventEventType', eventType.value);
+//   localStorage.setItem('eventDescription', description.value);

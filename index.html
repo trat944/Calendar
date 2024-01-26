@@ -23,55 +23,55 @@
     <div class="days"></div>
 
 
-<div class="modal" id="newEventModal">
-    <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <h2>New event</h2>
+    <div class="modal" id="newEventModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>New event</h2>
 
-        <form id="newEventForm" class="modal-container">
+            <form id="newEventForm" class="modal-container">
 
-            <label for="eventTitle">Title:</label>
-            <input type="text" id="eventTitle" name="eventTitle">
-            <label for="initialDate">Initial Date:</label>
-            <input type="datetime-local" name="initialDate" id="initialDate">
-            <label for="checkEndDate">End Date</label>
-            <input type="checkbox" name="checkEndDate" id="checkEndDate">
-            <div class="endDate hide">
-            <label for="endDate">End Date:</label>
-            <input type="datetime-local" name="endDate" id="endDate">
-            </div>
-            <label for="remindDate">Remind me when this event expires</label>
-            <input type="checkbox" name="remindDate" id="remindDate">
-            <label for="reminder">Reminder:</label>
-            <select id="reminder" name="reminder">
-              <option value="0">No reminder</option>
-              <option value="5">5 minutes before</option>
-              <option value="10">10 minutes before</option>
-              <option value="15">15 minutes before</option>
-              <option value="30">30 minutes before</option>
-              <option value="60">1 hour before</option>
-            </select>
-            <label for="description">Description:</label>
-            <textarea name="description" id="description"></textarea>
+                <label for="eventTitle">Title:</label>
+                <input type="text" id="eventTitle" name="eventTitle">
+                <label for="initialDate">Initial Date:</label>
+                <input type="datetime-local" name="initialDate" id="initialDate">
+                <label for="checkEndDate">End Date</label>
+                <input type="checkbox" name="checkEndDate" id="checkEndDate">
+                <div class="endDate hide">
+                <label for="endDate">End Date:</label>
+                <input type="datetime-local" name="endDate" id="endDate">
+                </div>              
+                <label for="remindDate">Remind me when this event expires</label>
+                <input type="checkbox" name="remindDate" id="remindDate">
 
-            <label for="eventType">Event type:</label>
-            <select id="eventType" name="eventType">
-              <option value="meeting">Meeting</option>
-              <option value="personal">Personal</option>
-              <option value="study">Study</option>
-              <option value="other">Other</option>
-            </select>
+                <div class="reminderContainer hide">
+                <label for="reminder">Reminder:</label>
+                <select id="reminder" name="reminder">
+                  <option value="0">No reminder</option>
+                  <option value="5">5 minutes before</option>
+                  <option value="10">10 minutes before</option>
+                  <option value="15">15 minutes before</option>
+                  <option value="30">30 minutes before</option>
+                  <option value="60">1 hour before</option>
+                </select>
+                </div>
+                <label for="description">Description:</label>
+                <textarea name="description" id="description"></textarea>
 
-            <div class="modal-footer">
-                <button type="button" id="cancelButton">Cancel</button>
-                <button type="submit" id="saveButton">Save</button>
-            </div>
-        </form>
-    
-    
-    
-      </div>
-</div>
+                <label for="eventType">Event type:</label>
+                <select id="eventType" name="eventType">
+                  <option value="meeting">Meeting</option>
+                  <option value="personal">Personal</option>
+                  <option value="study">Study</option>
+                  <option value="other">Other</option>
+                </select>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelButton">Cancel</button>
+                    <button type="button" id="saveButton">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
 
