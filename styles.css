@@ -45,16 +45,15 @@ button:hover {
   border: 1px solid #eee;
 }
 
-.event {
+/* .event {
   background-color: #28a745;
   color: #fff;
   border-radius: 3px;
   padding: 2px;
-}
+} */
 
+/* Modal New Event */
 
-
-/* Estilos para el modal */
 .modal {
   display: none;
   position: fixed;
@@ -69,15 +68,15 @@ button:hover {
   display: block;
 }
 
-.modal-content {
+.modal__container{
   background-color: #fff;
   margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%;
+  width: 30%;
 }
 
-.close {
+.modal__close {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -85,17 +84,16 @@ button:hover {
   cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
+.modal__close:hover,
+.modal__close:focus {
   color: black;
   text-decoration: none;
 }
 
-/* Estilos adicionales según tus necesidades */
-
-.modal-container {
+.modal__form {
   display:flex;
   flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .hide {

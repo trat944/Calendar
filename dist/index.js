@@ -44,17 +44,28 @@ nextBtn.addEventListener('click', () => {
     renderCalendar();
 });
 // Modal code
-const { newEventModal, cancelButton, addEventButton, newEventForm, saveButton, closeModalButton, checkEndDate, endDateContainer, reminderContainer, remindDate, reminderSelect } = domVariables;
+const { newEventModal, cancelButton, addEventButton, newEventForm, saveButton, closeModalButton, checkEndDate, endDateContainer, reminderContainer, checkRemindDate, reminderSelect } = domVariables;
+addEventButton.addEventListener('click', () => {
+    newEventModal.classList.add('active');
+    newEventModal.focus();
+});
 saveButton.addEventListener('click', () => {
     checkForm();
     // closeAndResetModal();
 });
-addEventButton.addEventListener('click', () => {
-    newEventModal.classList.add('active');
-});
 cancelButton.addEventListener('click', closeAndResetModal);
 closeModalButton.addEventListener('click', closeAndResetModal);
-//evento checkbox
+newEventModal.addEventListener('click', (event) => {
+    if (event.target === newEventModal) {
+        closeAndResetModal();
+    }
+});
+newEventModal.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closeAndResetModal();
+    }
+});
+//event checkbox
 checkEndDate.addEventListener('change', () => {
     if (endDateContainer.classList.contains('hide')) {
         endDateContainer.classList.remove('hide');
@@ -62,7 +73,7 @@ checkEndDate.addEventListener('change', () => {
     else
         endDateContainer.classList.add('hide');
 });
-remindDate.addEventListener('change', () => {
+checkRemindDate.addEventListener('change', () => {
     if (reminderContainer.classList.contains('hide')) {
         reminderContainer.classList.remove('hide');
     }

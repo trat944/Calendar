@@ -1,22 +1,27 @@
 export const domVariables = {
-    prevBtn: document.querySelector('#prevMonth'),
-    nextBtn: document.querySelector('#nextMonth'),
+    //elements for the calendar
+    prevBtn: document.getElementById('prevMonth'),
+    nextBtn: document.getElementById('nextMonth'),
     currentMonthElement: document.getElementById('currentMonth'),
-    calendarDays: document.querySelector('.days'),
+    calendarDays: document.getElementById('days'),
+    //new event button
     addEventButton: document.getElementById('showModal'),
+    //modal elements 
     newEventModal: document.getElementById('newEventModal'),
     closeModalButton: document.getElementById('closeModal'),
-    cancelButton: document.getElementById('cancelButton'),
+    //form elements
     newEventForm: document.getElementById('newEventForm'),
-    reminderSelect: document.getElementById('reminder'),
     eventTitle: document.getElementById('eventTitle'),
     initialDate: document.getElementById('initialDate'),
-    endDateContainer: document.querySelector('.endDate'),
-    endDate: document.getElementById('endDate'),
-    remindDate: document.getElementById('remindDate'),
-    reminderContainer: document.querySelector('.reminderContainer'),
-    eventType: document.getElementById('eventType'),
-    description: document.getElementById('description'),
     checkEndDate: document.getElementById('checkEndDate'),
+    endDateContainer: document.getElementById('endDateContainer'),
+    endDate: document.getElementById('endDate'),
+    checkRemindDate: document.getElementById('checkRemindDate'),
+    reminderContainer: document.getElementById('reminderContainer'),
+    reminderSelect: document.getElementById('reminder'),
+    description: document.getElementById('description'),
+    eventType: document.getElementById('eventType'),
+    //modal footer
+    cancelButton: document.getElementById('cancelButton'),
     saveButton: document.getElementById('saveButton')
 };
