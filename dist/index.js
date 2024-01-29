@@ -1,7 +1,15 @@
-// import { Event } from "./interface.js";
 import { variables } from "./variables/variables.js";
 import { Months } from "./enums.js";
 import { domVariables } from "./variables/dom_variables.js";
+const highlightPresentDate = () => {
+    const date = new Date;
+    const presentDate = {
+        presentDay: date.getDate(),
+        presentMonth: date.getMonth(),
+        presentYear: date.getFullYear()
+    };
+    return presentDate;
+};
 function renderCalendar() {
     const { currentMonth, currentYear } = variables;
     const { calendarDays, currentMonthElement } = domVariables;
@@ -17,6 +25,9 @@ function renderCalendar() {
         const dayElement = document.createElement('div');
         dayElement.classList.add('day');
         dayElement.innerText = i.toString();
+        // if (dayElement.innerText === highlightPresentDay().presentDay) {
+        //   dayElement.classList.add('presentDay');
+        // }
         calendarDays.appendChild(dayElement);
     }
     currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
@@ -43,16 +54,63 @@ nextBtn.addEventListener('click', () => {
     checkNextBtn();
     renderCalendar();
 });
-// Modal code
-const { newEventModal, cancelButton, addEventButton, newEventForm, saveButton, closeModalButton, checkEndDate, endDateContainer, reminderContainer, checkRemindDate, reminderSelect } = domVariables;
+const { newEventModal, cancelButton, addEventButton, newEventForm, saveButton, closeModalButton, checkEndDate, endDateContainer, reminderContainer, checkRemindDate, reminderSelect, description } = domVariables;
 addEventButton.addEventListener('click', () => {
     newEventModal.classList.add('active');
     newEventModal.focus();
 });
 saveButton.addEventListener('click', () => {
-    checkForm();
-    // closeAndResetModal();
+    const formVerification = checkForm();
+    if (formVerification) {
+        objectCreation();
+        localStorage.setItem('event', JSON.stringify(objectCreation()));
+        if (objectCreation().reminderSelect) {
+            const datee = getReminderDate();
+            setInterval(() => {
+                checkReminder(datee);
+            }, 10000);
+        }
+        closeAndResetModal();
+    }
+    else {
+        alert('Atiende cojones');
+    }
 });
+const getReminderDate = () => {
+    const hourOfDay = objectCreation().initialDate.slice(11);
+    const [hour, minute] = hourOfDay.split(':');
+    const dayOfEvent = objectCreation().initialDate.slice(0, 10);
+    let [year, month, day] = dayOfEvent.split('-');
+    const reminder = Number(objectCreation().reminderSelect);
+    const minutes = Number(minute) - reminder;
+    const reminderDate = new Date();
+    reminderDate.setHours(parseInt(hour));
+    reminderDate.setMinutes(minutes);
+    reminderDate.setFullYear(parseInt(year));
+    reminderDate.setMonth(parseInt((month)) - 1);
+    reminderDate.setDate(parseInt(day));
+    return reminderDate;
+};
+const checkReminder = (datee) => {
+    const currentDate = new Date();
+    if (currentDate > datee)
+        alert('yepa');
+    console.log({ datee }, { currentDate });
+};
+const objectCreation = () => {
+    const { eventTitle, initialDate, endDate, checkRemindDate, reminderSelect, description, eventType, checkEndDate } = domVariables;
+    const newEvent = {
+        eventTitle: eventTitle.value,
+        initialDate: initialDate.value,
+        checkEndDate: checkEndDate.value,
+        endDate: endDate.value,
+        checkRemindDate: checkRemindDate.value,
+        reminderSelect: reminderSelect.value,
+        description: description.value,
+        eventType: eventType.value
+    };
+    return newEvent;
+};
 cancelButton.addEventListener('click', closeAndResetModal);
 closeModalButton.addEventListener('click', closeAndResetModal);
 newEventModal.addEventListener('click', (event) => {
@@ -81,19 +139,30 @@ checkRemindDate.addEventListener('change', () => {
         reminderContainer.classList.add('hide');
 });
 function checkForm() {
-    const { eventTitle, initialDate, checkEndDate, endDate } = domVariables;
+    const { eventTitle, initialDate, endDate } = domVariables;
     if (!eventTitle.value || eventTitle.value.length > 60)
-        console.log('Error');
+        return false;
     if (!initialDate.value)
-        console.log('Error');
+        return false;
     if (!endDateContainer.classList.contains('hide') && !endDate.value)
-        console.log('error');
+        return false;
     if (!reminderContainer.classList.contains('hide') && reminderSelect.value === "0")
-        console.log('calabaza');
+        return false;
+    if (description.length > 500)
+        return false;
+    else
+        return true;
 }
 function closeAndResetModal() {
+    const { eventTitle, initialDate, endDate, description, checkRemindDate, checkEndDate, reminderSelect } = domVariables;
     newEventModal.classList.remove("active");
-    newEventForm.reset();
+    reminderSelect.value = "0";
+    initialDate.value = "";
+    eventTitle.value = "";
+    endDate.value = "";
+    description.value = "";
+    checkRemindDate.checked = false;
+    checkEndDate.checked = false;
 }
 //const submitEvent = () => {
 //   const {eventTitle, initialDate, endDate, eventType, description,} = domVariables;

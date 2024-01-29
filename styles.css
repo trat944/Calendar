@@ -42,6 +42,21 @@ body {
   
 }
 
+.weekdays {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+}
+
+.weekdays span {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.presentDay {
+  background-color: red;
+}
+
 button {
   background-color: #007BFF;
   color: #fff;

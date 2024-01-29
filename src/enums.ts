@@ -13,3 +13,10 @@ export enum Months {
   December
 };
 
+export enum eventType {
+  meeting = "meeting", 
+  personal = "personal",
+  study = "study",
+  other = "other"
+}
+

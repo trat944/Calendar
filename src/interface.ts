@@ -1,11 +1,13 @@
-// // import { EventType } from "./enums";
+import { eventType } from "./enums"
 
-// export interface Event {
-//     title: string;
-//     initial_date: string;
-//     end_date: string;
-//     remind_date: boolean;
-//     reminder: string;
-//     description: string;
-//     event_type: EventType;
-// }
+
+export interface Event {
+  eventTitle: string,
+  initialDate: string,
+  checkEndDate?: string,
+  endDate?: string,
+  checkRemindDate?: string,
+  reminderSelect?: string,
+  description?: string,
+  eventType: eventType
+}

@@ -14,3 +14,10 @@ export var Months;
     Months[Months["December"] = 11] = "December";
 })(Months || (Months = {}));
 ;
+export var eventType;
+(function (eventType) {
+    eventType["meeting"] = "meeting";
+    eventType["personal"] = "personal";
+    eventType["study"] = "study";
+    eventType["other"] = "other";
+})(eventType || (eventType = {}));
