@@ -4,38 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Ubuntu&display=swap" rel="stylesheet">
-    <title>Event Calendar</title>
+    <title>Event Calendar JS</title>
 </head>
 <body>
 
   <header class="title">
     <h1>JS Calendar</h1>
-    <button id="showModal"></button>
+    <button id="showModal">New Event</button>
   </header>
 
-  <main class="calendar-general-container">
-    <aside class="event-container"> 
-      <h2>Events for</h2>
-      <div class="default-event">
-        <h3>NO DAY SELECTED</h3>
-        <img src="/img/lazy-day-cat.png" alt="lazy-cat">
-      </div>
-    </aside>
-    <section class="dates-container">
-      <div class="header">
-        <button id="prevMonth">&#5130;</button>
-        <h2 id="currentMonth">Month Year</h2>
-        <button id="nextMonth">&#5125;</button>
-      </div>
-        <div class="days"></div>
-  
+  <main>
+    <div class="header">
+      <button id="prevMonth">&#5130;</button>
+      <h2 id="currentMonth"></h2>
+      <button id="nextMonth">&#5125;</button>
+    </div>
+    
+    <div class="days" id="days"></div>
 
-    </section>
-    
-    
+    <div class="modal" id="newEventModal" tabindex="0">
+        <div class="modal__container">
+            <span class="modal__close" id="closeModal">&times;</span>
+            <h2>New event</h2>
+
+            <form class="modal__form" id="newEventForm">
+
+                <label for="eventTitle">Title:</label>
+                <input type="text" name="eventTitle" id="eventTitle">
+                <div>
+                  <label for="initialDate">Initial Date:</label>
+                  <input type="datetime-local" name="initialDate" id="initialDate">
+                </div>
+                <label for="checkEndDate">End Date</label>
+                <input type="checkbox" name="checkEndDate" id="checkEndDate">
+                <div class="modal__form__checkend hide" id="endDateContainer">
+                  <label for="endDate">End Date:</label>
+                  <input type="datetime-local" name="endDate" id="endDate">
+                </div>
+
+                <label for="remindDate">Remind me when this event expires</label>
+                <input type="checkbox" name="remindDate" id="checkRemindDate">
+                <div class="modal__form__reminder hide" id="reminderContainer">
+                  <label for="reminder">Reminder:</label>
+                  <select name="reminder" id="reminder">
+                    <option value="0">No reminder</option>
+                    <option value="5">5 minutes before</option>
+                    <option value="10">10 minutes before</option>
+                    <option value="15">15 minutes before</option>
+                    <option value="30">30 minutes before</option>
+                    <option value="60">1 hour before</option>
+                  </select>
+                </div>
+
+                <label for="description">Description:</label>
+                <textarea name="description" id="description"></textarea>
+
+                <label for="eventType">Event type:</label>
+                <select name="eventType" id="eventType">
+                  <option value="meeting">Meeting</option>
+                  <option value="personal">Personal</option>
+                  <option value="study">Study</option>
+                  <option value="other">Other</option>
+                </select>
+
+                <div class="modal__footer">
+                    <button type="button" id="cancelButton">Cancel</button>
+                    <button type="button" id="saveButton">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
 
   </main>
 
