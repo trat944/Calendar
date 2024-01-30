@@ -13,7 +13,7 @@ const highlightPresentDate = (): ActualTime => {
   return presentDate;
 }
 
-function renderCalendar(): void {
+/*function renderCalendar(): void {
   const {currentMonth, currentYear} = variables;
   const {calendarDays, currentMonthElement} = domVariables;
 
@@ -41,7 +41,118 @@ function renderCalendar(): void {
       calendarDays.appendChild(dayElement);
   }
   currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
+
+
+  const events = getEventsFromLocalStorage();
+
+  for (const event of events) {
+    // Agregar lógica para mostrar eventos en el calendario.
+    // Por ejemplo, puedes resaltar el día del evento.
+    // Puedes modificar este código según tu estructura de eventos y calendario.
+    const eventDate = new Date(event.initialDate);
+    const dayElements = document.querySelectorAll('.day');
+    for (const dayElement of dayElements) {
+      if (parseInt(dayElement.innerText, 10) === eventDate.getDate()) {
+        dayElement.classList.add('event-day');
+      }
+    }
+  }
+
+}*/
+
+/*function renderCalendar(): void {
+  const { currentMonth, currentYear } = variables;
+  const { calendarDays, currentMonthElement } = domVariables;
+
+  const firstDayOfMonth: number = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth: number = new Date(currentYear, currentMonth + 1, 0).getDate();
+  calendarDays.innerHTML = '';
+
+  const presentTime: ActualTime = highlightPresentDate();
+  const { presentDay, presentMonth, presentYear } = presentTime;
+
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    const dayElement = document.createElement('div');
+    dayElement.classList.add('day', 'empty');
+    calendarDays.appendChild(dayElement);
+  }
+
+  const events = getEventsFromLocalStorage();
+
+
+  for (let i = 1; i <= daysInMonth; i++) {
+    const dayElement = document.createElement('div');
+    dayElement.classList.add('day');
+    dayElement.innerText = i.toString();
+
+    
+    // Verifica si hay eventos para este día y agrega la clase 'event-day'
+    const eventsForDay = events.filter(event => {
+      const eventDate = new Date(event.initialDate);
+      return eventDate.getDate() === i && eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
+    });
+
+    if (eventsForDay.length > 0) {
+      dayElement.classList.add('event-day');
+    }
+
+      if (dayElement.innerText === presentDay.toString() && presentMonth === currentMonth && presentYear === currentYear ) {
+        dayElement.classList.add('presentDay');
+      }
+      calendarDays.appendChild(dayElement);
+    }
+  currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
+}*/
+
+function renderCalendar(): void {
+  const { currentMonth, currentYear } = variables;
+  const { calendarDays, currentMonthElement } = domVariables;
+
+  const firstDayOfMonth: number = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth: number = new Date(currentYear, currentMonth + 1, 0).getDate();
+  calendarDays.innerHTML = '';
+
+  const presentTime: ActualTime = highlightPresentDate();
+  const { presentDay, presentMonth, presentYear } = presentTime;
+
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    const dayElement = document.createElement('div');
+    dayElement.classList.add('day', 'empty');
+    calendarDays.appendChild(dayElement);
+  }
+
+  const events = getEventsFromLocalStorage();
+
+  for (let i = 1; i <= daysInMonth; i++) {
+    const dayElement = document.createElement('div');
+    dayElement.classList.add('day');
+    dayElement.innerText = i.toString();
+
+    // Verifica si hay eventos para este día y agrega la clase 'event-day'
+    const eventsForDay = events.filter(event => {
+      const eventDate = new Date(event.initialDate);
+      return eventDate.getDate() === i && eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
+    });
+
+    if (eventsForDay.length > 0) {
+      dayElement.classList.add('event-day');
+      const eventText = document.createElement('div');
+      eventText.classList.add('event-text');
+      eventText.innerText = eventsForDay.map(event => event.eventTitle).join(', ');
+      dayElement.appendChild(eventText);
+    }
+
+    if (i === presentDay && presentMonth === currentMonth && presentYear === currentYear) {
+      dayElement.classList.add('presentDay');
+    }
+
+    calendarDays.appendChild(dayElement);
+  }
+
+  currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
 }
+
+
 renderCalendar();
 
 const checkPreviousBtn = (): void => {
@@ -79,7 +190,7 @@ addEventButton.addEventListener('click', () => {
   newEventModal.focus();
 });
 
-saveButton.addEventListener('click', () => {
+/*saveButton.addEventListener('click', () => {
   const formVerification = checkForm();
   if (formVerification) {
     objectCreation();
@@ -91,11 +202,42 @@ saveButton.addEventListener('click', () => {
       }, 10000)
     }
     ///añadir evento al día
+    renderCalendar();
     closeAndResetModal();
   } else {
-    alert('Atiende cojones')
+    highlightIncompleteFields();
+  }
+});*/
+
+saveButton.addEventListener('click', () => {
+  const formVerification = checkForm();
+  if (formVerification) {
+    const newEvent = objectCreation();
+    const events = getEventsFromLocalStorage();
+    console.log(events);
+
+    // Agrega el nuevo evento al arreglo de eventos
+    events.push(newEvent);
+  
+    // Guarda el arreglo de eventos actualizado en localStorage
+    localStorage.setItem('events', JSON.stringify(events));
+
+    if (newEvent.reminderSelect) {
+      const remindDate = getReminderDate();
+      setInterval(() => {
+        checkReminder(remindDate);
+      }, 10000);
+    }
+
+    // Añade evento al día en el calendario
+    renderCalendar();
+    closeAndResetModal();
+  } else {
+    highlightIncompleteFields();
   }
 });
+
+
 
 const getReminderDate = (): object => {
     const hourOfDay = objectCreation().initialDate.slice(11);
@@ -187,6 +329,58 @@ function closeAndResetModal() {
   description.value = "";
   checkRemindDate.checked = false;
   checkEndDate.checked = false;
+}
+
+
+function getEventsFromLocalStorage(): Event[] {
+  const eventsString = localStorage.getItem('events');
+  return eventsString ? JSON.parse(eventsString) : [];
+}
+
+
+function highlightIncompleteFields() {
+  const { eventTitle, initialDate, endDateContainer, endDate, reminderContainer, reminderSelect, description } = domVariables;
+
+  // Función para resaltar en rojo un campo
+  const highlightField = (field) => {
+    field.style.border = '2px solid red';
+  };
+
+  // Función para restaurar el estilo normal de un campo
+  const resetFieldStyle = (field) => {
+    field.style.border = '';
+  };
+
+  // Lógica para resaltar campos incompletos
+  if (!eventTitle.value || eventTitle.value.length > 60) {
+    highlightField(eventTitle);
+  } else {
+    resetFieldStyle(eventTitle);
+  }
+
+  if (!initialDate.value) {
+    highlightField(initialDate);
+  } else {
+    resetFieldStyle(initialDate);
+  }
+
+  if (!endDateContainer.classList.contains('hide') && !endDate.value) {
+    highlightField(endDate);
+  } else {
+    resetFieldStyle(endDate);
+  }
+
+  if (!reminderContainer.classList.contains('hide') && reminderSelect.value === "0") {
+    highlightField(reminderSelect);
+  } else {
+    resetFieldStyle(reminderSelect);
+  }
+
+  if (description.value.length > 500) {
+    highlightField(description);
+  } else {
+    resetFieldStyle(description);
+  }
 }
 
 //const submitEvent = () => {
