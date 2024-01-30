@@ -13,9 +13,31 @@ const highlightPresentDate = (): ActualTime => {
   return presentDate;
 }
 
+const createBtnForEachDay = (currentYear: number, currentMonth: number, i: number): HTMLButtonElement => {
+  const {initialDate} = domVariables;
+  let currentMonthAsString: string = `${currentMonth + 1}`;
+  console.log(currentMonthAsString)
+  let currentDayAsString: string = `${i}`;
+  if (currentMonth + 1 < 10) {
+    currentMonthAsString = "0" + (currentMonth + 1).toString();
+  }
+  if (i < 10) {
+    currentDayAsString = "0" + i;
+  }
+  const eventBtn = document.createElement('button');
+  eventBtn.innerText = "Add Event";
+  eventBtn.classList.add('eventDay');
+  eventBtn.addEventListener('click', () => {
+    newEventModal.classList.add('active');
+    newEventModal.focus();
+    initialDate.value = `${currentYear}-${currentMonthAsString}-${currentDayAsString}T12:00`;
+  })
+  return eventBtn;
+}
+
 function renderCalendar(): void {
   const {currentMonth, currentYear} = variables;
-  const {calendarDays, currentMonthElement} = domVariables;
+  const {calendarDays, currentMonthElement, initialDate} = domVariables;
 
   const firstDayOfMonth: number = new Date(currentYear, currentMonth, 1).getDay();
   const daysInMonth: number = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -33,12 +55,14 @@ function renderCalendar(): void {
 
   for (let i = 1; i <= daysInMonth; i++) {
       const dayElement = document.createElement('div');
+      const eventBtn = createBtnForEachDay(currentYear, currentMonth, i);
       dayElement.classList.add('day');
       dayElement.innerText = i.toString();
       if (dayElement.innerText === presentDay.toString() && presentMonth === currentMonth && presentYear === currentYear ) {
         dayElement.classList.add('presentDay');
       }
       calendarDays.appendChild(dayElement);
+      dayElement.appendChild(eventBtn);
   }
   currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
 }
