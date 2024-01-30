@@ -11,3 +11,9 @@ export interface Event {
   description?: string,
   eventType: eventType
 }
+
+export interface ActualTime {
+  presentDay: number,
+  presentMonth: number,
+  presentYear: number
+}

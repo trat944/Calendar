@@ -1,11 +1,11 @@
-import { Event } from "./interface.js";
+import { Event, ActualTime } from "./interface.js";
 import { variables } from "./variables/variables.js";
 import { Months } from "./enums.js";
 import { domVariables } from "./variables/dom_variables.js";
 
-const highlightPresentDate = (): object => {
+const highlightPresentDate = (): ActualTime => {
   const date = new Date;
-  const presentDate = {
+  const presentDate: ActualTime = {
     presentDay: date.getDate(),
     presentMonth: date.getMonth(),
     presentYear: date.getFullYear()
@@ -21,7 +21,9 @@ function renderCalendar(): void {
   const daysInMonth: number = new Date(currentYear, currentMonth + 1, 0).getDate();
   calendarDays.innerHTML = '';
 
-
+  const presentTime: ActualTime = highlightPresentDate();
+  const {presentDay, presentMonth, presentYear} = presentTime;
+  
 
   for (let i = 0; i < firstDayOfMonth; i++) {
       const dayElement = document.createElement('div');
@@ -33,16 +35,14 @@ function renderCalendar(): void {
       const dayElement = document.createElement('div');
       dayElement.classList.add('day');
       dayElement.innerText = i.toString();
-      // if (dayElement.innerText === highlightPresentDay().presentDay) {
-      //   dayElement.classList.add('presentDay');
-      // }
+      if (dayElement.innerText === presentDay.toString() && presentMonth === currentMonth && presentYear === currentYear ) {
+        dayElement.classList.add('presentDay');
+      }
       calendarDays.appendChild(dayElement);
   }
   currentMonthElement.innerText = `${Months[currentMonth]} ${currentYear}`;
 }
 renderCalendar();
-
-const {prevBtn, nextBtn} = domVariables;
 
 const checkPreviousBtn = (): void => {
   variables.currentMonth = variables.currentMonth === 0 ? 11 : variables.currentMonth - 1;
@@ -57,6 +57,8 @@ const checkNextBtn = (): void => {
       variables.currentYear += 1;
   }
 }
+
+const {prevBtn, nextBtn} = domVariables;
 
 prevBtn.addEventListener('click', () => {
   checkPreviousBtn();
@@ -83,11 +85,12 @@ saveButton.addEventListener('click', () => {
     objectCreation();
     localStorage.setItem('event', JSON.stringify(objectCreation()));
     if (objectCreation().reminderSelect) {
-      const datee = getReminderDate();
+      const remindDate = getReminderDate();
       setInterval(() => {
-        checkReminder(datee);
+        checkReminder(remindDate);
       }, 10000)
     }
+    ///añadir evento al día
     closeAndResetModal();
   } else {
     alert('Atiende cojones')
@@ -113,10 +116,10 @@ const getReminderDate = (): object => {
     return reminderDate;
 }
 
-const checkReminder = (datee: object) => {
+const checkReminder = (remindDate: object) => {
     const currentDate = new Date();
-    if (currentDate > datee) alert('yepa')
-    console.log( {datee}, {currentDate})
+    if (currentDate > remindDate) alert('yepa')
+    console.log( {remindDate}, {currentDate})
 }
 
 
