@@ -13,23 +13,31 @@
     <button id="showModal">New Event</button>
   </header>
 
-  <main>
-    <div class="header">
-      <button id="prevMonth">&#5130;</button>
-      <h2 id="currentMonth"></h2>
-      <button id="nextMonth">&#5125;</button>
-    </div>
-    
-    <div class="weekdays">
-      <span>Sunday</span>
-      <span>Monday</span>
-      <span>Tuesday</span>
-      <span>Wednesday</span>
-      <span>Thursday</span>
-      <span>Friday</span>
-      <span>Saturday</span>
-    </div>
-    <div class="days" id="days"></div>
+  <main class="calendar-general-container">
+    <aside class="event-container"> 
+      <h2>Events for</h2>
+      <div class="default-event">
+        <h3>NO DAY SELECTED</h3>
+        <img src="/img/lazy-day-cat.png" alt="lazy-cat">
+      </div>
+    </aside>
+    <section class="dates-container">
+      <div class="header">
+        <button id="prevMonth">&#5130;</button>
+        <h2 id="currentMonth"></h2>
+        <button id="nextMonth">&#5125;</button>
+      </div>
+      <div class="weekdays">
+        <span>Sunday</span>
+        <span>Monday</span>
+        <span>Tuesday</span>
+        <span>Wednesday</span>
+        <span>Thursday</span>
+        <span>Friday</span>
+        <span>Saturday</span>
+      </div>
+      <div id="days" class="days"></div>
+    </section>
 
     <div class="modal" id="newEventModal" tabindex="0">
         <div class="modal__container">

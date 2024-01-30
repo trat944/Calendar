@@ -9,10 +9,9 @@ html {
   --calendar-shadow:#94979f;
   --font-on-white:#363a40;
   --font-on-darkgrey:#dee0e6;
-  --highlight-in-grey: faelinear-gradient(#b38ad6,#373c4f);
+  --highlight-in-grey: linear-gradient(#b38ad6,#373c4f);
   --highlight-in-white: #b38ad6;
   --general-background: #e9e8e4;
-
 }
 
 body {
@@ -22,8 +21,46 @@ body {
   font-size: 1.6rem;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  height: 100vh;
+  text-align:center;
 }
+
+.title h1 {
+  margin:0; 
+}
+
+.calendar-general-container {
+  display:flex;
+  margin: 10% auto 0 auto;
+  justify-content: center;
+  background-color: var(--gray-background);
+  padding: 1rem;
+  width: clamp(min(35vw), 60rem, max(65vw));
+  border-radius: 0.3rem;
+}
+
+.event-container {
+  background-color: var(--gray-background);
+  min-width: 10vw;
+  width: 30rem;
+  max-width: 30vw;
+  height: 55vh;
+  color: var(--font-on-darkgrey);
+}
+
+.default-event img {
+  margin-top: 60%;
+  width:20vw;
+}
+
+.dates-container {
+  width: calc(65vw - 20vw);
+  height: 55vh;
+  background-color: var(--white-page-calendar);
+  box-shadow: 0.5rem 0.5rem 0.5rem var(--calendar-shadow);
+  border-radius: 0.3rem;
+}
+
 
 .calendar {
   width: auto;
@@ -115,12 +152,12 @@ button:hover {
   box-shadow: 0.3 0.3 0.3 var(--calendar-shadow);
 }
 
-/* .event {
+.event {
   background-color: #28a745;
   color: #fff;
-  border-radius: 3px;
-  padding: 2px;
-} */
+  border-radius: 0.3rem;
+  padding: 0.2rem;
+}
 
 /* Modal New Event */
 
@@ -169,4 +206,80 @@ button:hover {
 .hide {
   display: none;
 }
+@media only screen and (max-width: 480px) {
+
+  .title {
+    margin: 1rem, auto;
+  }
+  .calendar-general-container {
+    flex-direction: column;
+    width: 90vw;
+    align-items: center;
+    height: 90vh;
+    max-height: 80vh;
+    font-size: smaller;
+  }
+  .default-event img {
+    margin-top: 0;
+    object-fit: contain;
+
+  }
+
+  .event-container {
+    height:auto;
+  }
+
+  .dates-container {
+    width: auto;
+  }
+}
+ 
+@media only screen and (min-width: 1000px) and (max-width: 1399px) {
+  .default-event img {
+    margin-top: 40%;
+  }
+  
+}
+
+@media only screen and (min-width: 1400px) and (max-width:2000px) {
+  body {
+    font-size: 1.5rem;
+  }
+  .calendar-general-container {
+    width: 65vw;
+  }
+
+  .event-container {
+    width: 35%;
+  }
+  .default-event img {
+    margin-top: 20%;
+  }
+ 
+  .day {
+    font-size: 2.5rem;
+    font-weight: bold;
+   
+  }
+}
+@media only screen and (min-width: 2001px) {
+  body {
+    font-size: 2.5rem;
+  }
+  .calendar-general-container {
+    width: 65vw;
+  }
+
+  .event-container {
+    width: 35%;
+  }
+  .day {
+    font-size: 3.5rem;
+    padding: 2.5rem 0;
+  }
+
+}
+
+
+
 
