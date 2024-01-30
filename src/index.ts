@@ -253,16 +253,3 @@ function highlightIncompleteFields() {
     resetFieldStyle(description);
   }
 }
-
-
-//const submitEvent = () => {
-  //   const {eventTitle, initialDate, endDate, eventType, description,} = domVariables;
-    
-  // }
-// event.preventDefault();
-
-//   localStorage.setItem('eventTitle', title.value);
-//   localStorage.setItem('eventInitialDate', initialDate.value);
-//   localStorage.setItem('eventEndDate', endDate.value);
-//   localStorage.setItem('eventEventType', eventType.value);
-//   localStorage.setItem('eventDescription', description.value);
