@@ -76,9 +76,23 @@ saveButton.addEventListener('click', () => {
         closeAndResetModal();
     }
     else {
-        alert('Atiende cojones');
+        highlightIncompleteFields();
     }
 });
+const objectCreation = () => {
+    const { eventTitle, initialDate, endDate, checkRemindDate, reminderSelect, description, eventType, checkEndDate } = domVariables;
+    const newEvent = {
+        eventTitle: eventTitle.value,
+        initialDate: initialDate.value,
+        checkEndDate: checkEndDate.value,
+        endDate: endDate.value,
+        checkRemindDate: checkRemindDate.value,
+        reminderSelect: reminderSelect.value,
+        description: description.value,
+        eventType: eventType.value
+    };
+    return newEvent;
+};
 const getReminderDate = () => {
     const hourOfDay = objectCreation().initialDate.slice(11);
     const [hour, minute] = hourOfDay.split(':');
@@ -99,20 +113,6 @@ const checkReminder = (remindDate) => {
     if (currentDate > remindDate)
         alert('yepa');
     console.log({ remindDate }, { currentDate });
-};
-const objectCreation = () => {
-    const { eventTitle, initialDate, endDate, checkRemindDate, reminderSelect, description, eventType, checkEndDate } = domVariables;
-    const newEvent = {
-        eventTitle: eventTitle.value,
-        initialDate: initialDate.value,
-        checkEndDate: checkEndDate.value,
-        endDate: endDate.value,
-        checkRemindDate: checkRemindDate.value,
-        reminderSelect: reminderSelect.value,
-        description: description.value,
-        eventType: eventType.value
-    };
-    return newEvent;
 };
 cancelButton.addEventListener('click', closeAndResetModal);
 closeModalButton.addEventListener('click', closeAndResetModal);
@@ -166,6 +166,45 @@ function closeAndResetModal() {
     description.value = "";
     checkRemindDate.checked = false;
     checkEndDate.checked = false;
+}
+function highlightIncompleteFields() {
+    const { eventTitle, initialDate, endDateContainer, endDate, reminderContainer, reminderSelect, description } = domVariables;
+    const highlightField = (field) => {
+        field.style.border = '2px solid red';
+    };
+    const resetFieldStyle = (field) => {
+        field.style.border = '';
+    };
+    if (!eventTitle.value || eventTitle.value.length > 60) {
+        highlightField(eventTitle);
+    }
+    else {
+        resetFieldStyle(eventTitle);
+    }
+    if (!initialDate.value) {
+        highlightField(initialDate);
+    }
+    else {
+        resetFieldStyle(initialDate);
+    }
+    if (!endDateContainer.classList.contains('hide') && !endDate.value) {
+        highlightField(endDate);
+    }
+    else {
+        resetFieldStyle(endDate);
+    }
+    if (!reminderContainer.classList.contains('hide') && reminderSelect.value === "0") {
+        highlightField(reminderSelect);
+    }
+    else {
+        resetFieldStyle(reminderSelect);
+    }
+    if (description.value.length > 500) {
+        highlightField(description);
+    }
+    else {
+        resetFieldStyle(description);
+    }
 }
 //const submitEvent = () => {
 //   const {eventTitle, initialDate, endDate, eventType, description,} = domVariables;
