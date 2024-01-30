@@ -114,15 +114,15 @@ button:hover {
 }
 
 .event-day {
-  background-color: #ffc107; /* O cualquier otro color que desees */
+  background-color: #ffc107;
   color: #000;
   font-weight: bold;
 }
 
 .event-text {
   font-size: 12px;
-  color: #ffffff; /* color del texto del evento */
-  background-color: #3498db; /* color de fondo del texto del evento */
+  color: #ffffff;
+  background-color: #3498db;
   padding: 2px 4px;
   border-radius: 4px;
   margin-top: 2px;
